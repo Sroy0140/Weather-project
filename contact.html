@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <!-- Add other necessary styles or links here -->
+    <title>About Us - Your Website Name</title>
+</head>
+
+<body>
+
+    <nav>
+        <div class="navbar-brand" onclick="redirectToRoot()"><img src="./images/weather-logo.png"></div>
+        <div class="navbar-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <section class="contact-section">
+        <div class="contact-content">
+            <h1>Contact Us</h1>
+            <p>
+                Have questions or feedback? Reach out to us using the form below or contact us directly.
+            </p>
+
+            <form action="#" method="post" class="contact-form">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Your Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+
+            <div class="contact-info">
+                <h2>Direct Contact</h2>
+                <p>Email: info@climatepulse.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Created by Shubham Roy. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function redirectToRoot() {
+        // Redirect to the root page
+            window.location.href = 'index.html'; // Update the URL as needed
+        }
+    </script>
+
+
+
+</body>
+
+</html>
