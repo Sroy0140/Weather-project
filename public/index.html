@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <nav>
+        <div class="navbar-brand"><img src="./images/weather-logo.png"></div>
+        <div class="navbar-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+        <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2>Welcome to</h2>
+                <h1>Climate Pulse</h1>
+                <p>Discover real-time weather information and forecasts. Check now for the latest updates.</p>
+                <button class="check-now-btn" onclick="checkNow()">Check Now</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Created by Shubham Roy. All rights reserved.</p>
+    </footer>
+
+
+        <script src="js/hero.js"></script> 
+        <script>
+            function checkNow() {
+                // You can replace 'index.html' with the actual path to your home page
+                window.location.href = 'weather.html'; 
+            }
+            
+        </script>
+</body>
+</html>

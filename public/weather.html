@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/weather.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.15/css/weather-icons.min.css">
+</head>
+
+<body clas="weather-body">
+
+    <nav>
+        <div class="navbar-brand" onclick="redirectToRoot()"><img src="./images/weather-logo.png"></div>
+        <div class="navbar-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <section class="weather-section">
+        <div class="search-bar">
+            <input type="text" id="cityInput" placeholder="Enter your city name">
+            <button id="search" onclick="searchWeather()">Search</button>
+        </div>
+
+        <div class="weather-card">
+            <div class="card-content">
+                <p id="dayDate">Day<span>,date</span></p>
+                <!-- Add more weather information as needed -->
+            </div>
+
+            <div class="bottom-section">
+                <h1 id="cityName">City</h1>
+                <h1 id="temperature">temperature: 25<sup>o</sup>C</h1>
+                <h1 id="status"></h1>
+            </div>
+        </div>
+    </section>
+
+    <button class="refresh-btn" onclick="refreshWeather()">Refresh</button>
+
+    <footer>
+        <p>&copy; 2023 Created by Shubham Roy. All rights reserved.</p>
+    </footer>
+
+    
+    
+
+<script>
+    function searchWeather() {
+        const apiKey = '48be73e266825f4c89875025e2ce7512';
+        const cityInput = document.getElementById('cityInput').value;
+
+        // Fetch current weather data
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                const dayDateElement = document.getElementById('dayDate');
+                const cityNameElement = document.getElementById('cityName');
+                const temperatureElement = document.getElementById('temperature');
+                const statusElement = document.getElementById('status');
+
+                // Update the DOM with the fetched data
+                dayDateElement.textContent = formatDayDate(new Date());
+                cityNameElement.textContent = `${data.name},${data.sys.country}`;
+                temperatureElement.textContent = `Temperature: ${kelvinToCelsius(data.main.temp)}°C`;
+                // Set the weather icon dynamically
+                const weatherIcon = getWeatherIcon(data.weather[0].main);
+                statusElement.innerHTML = `<i class="wi ${weatherIcon}"></i> ${data.weather[0].main}`;
+                // Change background image based on weather status
+                updateBackgroundImage(data.weather[0].main);
+            })
+            .catch(error => {
+                console.error('Error fetching current weather:', error);
+                alert('Error fetching weather data. Please try again.');
+            });
+    }
+    function refreshWeather() {
+    // Clear all fields
+    document.getElementById('dayDate').textContent = 'Day';
+    document.getElementById('cityName').textContent = 'City';
+    document.getElementById('temperature').textContent = '';
+    document.getElementById('status').textContent = '';
+    document.getElementById('cityInput').value = '';
+
+    // Reset background image to default
+    document.body.style.backgroundImage = 'url(../images/default-background.jpg)';
+    }
+
+    function updateBackgroundImage(weatherStatus) {
+    // Map weather status to background images
+    const backgroundImageMap = {
+        'Clear': 'url(./images/sunny-background.jpg)', // For clear sky
+        'Clouds': 'url(./images/cloudy-background.jpg)', // For cloudy weather
+        'Rain': 'url(./images/rainy-background.jpg)', // For rainy weather
+        'Haze': 'url(./images/haze-background.jpg)', // For haze weather
+        // Add more mappings as needed
+    };
+
+    // Set background image based on weather status
+    document.body.style.backgroundImage = backgroundImageMap[weatherStatus] || 'url(./images/default-background.jpg)';
+}
+    function getWeatherIcon(weatherStatus) {
+    // Map weather status to Font Awesome icons
+    const iconMap = {
+        'Clear': 'fas fa-sun', // For clear sky
+        'Clouds': 'fas fa-cloud', // For cloudy weather
+        'Rain': 'fas fa-cloud-showers-heavy', // For rainy weather
+        // Add more mappings as needed
+    };
+
+    // Default to a generic weather icon if no match is found
+    return iconMap[weatherStatus] || 'fas fa-sun';
+}
+
+    // Helper function to format day and date
+    function formatDayDate(date) {
+        const options = { weekday: 'long', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    }
+
+    // Helper function to convert temperature from Kelvin to Celsius
+    function kelvinToCelsius(kelvin) {
+        return (kelvin - 273.15).toFixed(1);
+    }
+
+    function redirectToRoot() {
+    // Redirect to the root page
+    window.location.href = 'index.html'; // Update the URL as needed
+}
+</script>
+<script src="./js/main.js"></script>
+
+    
+
+</body>
+
+</html>
